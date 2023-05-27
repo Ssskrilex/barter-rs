@@ -204,13 +204,9 @@ where
                     }
 
                     Event::OrderNew(order) => {
-                        let fill = self
-                            .execution
+                        self.execution
                             .generate_fill(&order)
                             .expect("failed to generate Fill");
-
-                        self.event_tx.send(Event::Fill(fill.clone()));
-                        self.event_q.push_back(Event::Fill(fill));
                     }
 
                     Event::Fill(fill) => {
